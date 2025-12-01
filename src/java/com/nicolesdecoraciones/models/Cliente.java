@@ -12,18 +12,30 @@ public class Cliente {
     private String telefono;
     private String email;
     private String tipoEvento;
-    private Date fechaReservacion;
+    private java.sql.Date fechaReservacion; // CAMBIO: usar java.sql.Date
     private Date fechaRegistro;
     
     // Constructores
     public Cliente() {}
     
-    public Cliente(String nombre, String telefono, String email, String tipoEvento, Date fechaReservacion) {
+    // Constructor principal con java.sql.Date
+    public Cliente(String nombre, String telefono, String email, String tipoEvento, java.sql.Date fechaReservacion) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
         this.tipoEvento = tipoEvento;
         this.fechaReservacion = fechaReservacion;
+    }
+    
+    // Constructor alternativo para compatibilidad
+    public Cliente(String nombre, String telefono, String email, String tipoEvento, Date fechaReservacion) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.email = email;
+        this.tipoEvento = tipoEvento;
+        if (fechaReservacion != null) {
+            this.fechaReservacion = new java.sql.Date(fechaReservacion.getTime());
+        }
     }
     
     // Getters y Setters
@@ -42,8 +54,24 @@ public class Cliente {
     public String getTipoEvento() { return tipoEvento; }
     public void setTipoEvento(String tipoEvento) { this.tipoEvento = tipoEvento; }
     
-    public Date getFechaReservacion() { return fechaReservacion; }
-    public void setFechaReservacion(Date fechaReservacion) { this.fechaReservacion = fechaReservacion; }
+    // Getter para fechaReservacion como java.sql.Date
+    public java.sql.Date getFechaReservacion() { 
+        return fechaReservacion; 
+    }
+    
+    // Setter para fechaReservacion como java.sql.Date
+    public void setFechaReservacion(java.sql.Date fechaReservacion) { 
+        this.fechaReservacion = fechaReservacion; 
+    }
+    
+    // Setter alternativo para java.util.Date
+    public void setFechaReservacion(Date fechaReservacion) {
+        if (fechaReservacion != null) {
+            this.fechaReservacion = new java.sql.Date(fechaReservacion.getTime());
+        } else {
+            this.fechaReservacion = null;
+        }
+    }
     
     public Date getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(Date fechaRegistro) { this.fechaRegistro = fechaRegistro; }

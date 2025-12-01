@@ -35,29 +35,55 @@ public class FormularioServlet extends HttpServlet {
         String fechaStr = request.getParameter("fechaReservacion");
         
         try {
-            // Convertir fecha
+            // Validar que todos los campos requeridos estén presentes
+            if (nombre == null || nombre.trim().isEmpty() ||
+                telefono == null || telefono.trim().isEmpty() ||
+                tipoEvento == null || tipoEvento.trim().isEmpty() ||
+                fechaStr == null || fechaStr.trim().isEmpty()) {
+                
+                request.setAttribute("error", "❌ Por favor complete todos los campos requeridos");
+                request.getRequestDispatcher("formulario.jsp").forward(request, response);
+                return;
+            }
+            
+            // Convertir fecha de String a java.util.Date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaReservacion = sdf.parse(fechaStr);
+            sdf.setLenient(false); // Validación estricta de fechas
+            
+            Date fechaUtil = sdf.parse(fechaStr);
+            
+            // Convertir java.util.Date a java.sql.Date
+            java.sql.Date fechaReservacion = new java.sql.Date(fechaUtil.getTime());
             
             // Verificar si la fecha está ocupada
-            if (clienteDAO.existeFechaReservacion((java.sql.Date) fechaReservacion)) {
+            if (clienteDAO.existeFechaReservacion(fechaReservacion)) {
                 request.setAttribute("error", "❌ FECHA RESERVADA - Esta fecha ya está ocupada. Por favor seleccione otra fecha.");
                 request.getRequestDispatcher("formulario.jsp").forward(request, response);
                 return;
             }
             
-            // Crear y guardar cliente
+            // Crear y guardar cliente usando java.sql.Date
             Cliente cliente = new Cliente(nombre, telefono, email, tipoEvento, fechaReservacion);
             boolean exito = clienteDAO.insertarCliente(cliente);
             
             if (exito) {
-                request.setAttribute("mensaje", "✅ RESERVACIÓN EXITOSA - Se ha agendado correctamente para " + fechaStr);
+                // Formatear fecha para mostrar en el mensaje
+                SimpleDateFormat formatoDisplay = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaDisplay = formatoDisplay.format(fechaReservacion);
+                
+                request.setAttribute("mensaje", "✅ RESERVACIÓN EXITOSA - Se ha agendado correctamente para " + fechaDisplay);
+                
+                // Limpiar el formulario después de éxito
+                request.setAttribute("limpiarFormulario", "true");
             } else {
-                request.setAttribute("error", "❌ Error al guardar la reservación");
+                request.setAttribute("error", "❌ Error al guardar la reservación. Por favor intente nuevamente.");
             }
             
+        } catch (java.text.ParseException e) {
+            request.setAttribute("error", "❌ Error en el formato de fecha. Use el formato correcto.");
+            e.printStackTrace();
         } catch (Exception e) {
-            request.setAttribute("error", "❌ Error en el formato de fecha");
+            request.setAttribute("error", "❌ Error del sistema: " + e.getMessage());
             e.printStackTrace();
         }
         

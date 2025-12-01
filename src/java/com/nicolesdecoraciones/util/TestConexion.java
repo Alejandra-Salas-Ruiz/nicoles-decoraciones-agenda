@@ -5,31 +5,48 @@
 package com.nicolesdecoraciones.util;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TestConexion {
     
-    public static void main(String[] args) {
-        System.out.println("🔍 Probando conexión a la base de datos...");
-        
+    public static void testConnection() {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("✅ CONEXIÓN EXITOSA a la base de datos!");
-                System.out.println("📊 Base de datos: nicoles_decoraciones");
-                System.out.println("🔗 URL: jdbc:mysql://localhost:3306/nicoles_decoraciones");
-                conn.close();
+            System.out.println("✅ CONEXIÓN EXITOSA A LA BD");
+            System.out.println(" - URL: jdbc:mysql://localhost:3306/nicoles_decoraciones");
+            System.out.println(" - Usuario: root");
+            System.out.println(" - BD: nicoles_decoraciones");
+            
+            // Verificar si la tabla existe
+            DatabaseMetaData dbmd = conn.getMetaData();
+            ResultSet tables = dbmd.getTables(null, null, "clientes", null);
+            if (tables.next()) {
+                System.out.println("✅ Tabla 'clientes' existe");
             } else {
-                System.out.println("❌ Error: No se pudo establecer conexión");
+                System.out.println("❌ Tabla 'clientes' NO existe");
             }
+            
+            // Verificar datos existentes
+            ResultSet rs = conn.createStatement().executeQuery("SELECT COUNT(*) as total FROM clientes");
+            if (rs.next()) {
+                System.out.println("📊 Total de clientes en BD: " + rs.getInt("total"));
+            }
+            
+            conn.close();
+            System.out.println("✅ Conexión cerrada correctamente");
+            
         } catch (SQLException e) {
-            System.out.println("❌ ERROR en la conexión:");
-            System.out.println("Mensaje: " + e.getMessage());
-            System.out.println("🔧 Solución:");
-            System.out.println("1. Verifica que XAMPP MySQL esté iniciado");
-            System.out.println("2. Verifica que la base de datos 'nicoles_decoraciones' exista");
-            System.out.println("3. Verifica el driver MySQL en Libraries");
+            System.err.println("❌ ERROR EN CONEXIÓN:");
             e.printStackTrace();
         }
+    }
+    
+    // Método main para probar directamente
+    public static void main(String[] args) {
+        System.out.println("=== INICIANDO PRUEBA DE CONEXIÓN ===");
+        testConnection();
+        System.out.println("=== PRUEBA COMPLETADA ===");
     }
 }
