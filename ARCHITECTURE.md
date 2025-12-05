@@ -1,6 +1,6 @@
  Arquitectura Técnica - Nicole's Decoraciones
 
-📊 Diagrama de Arquitectura
+Diagrama de Arquitectura
 
  Vista de Alto Nivel:
 ```mermaid
