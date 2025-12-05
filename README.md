@@ -62,7 +62,7 @@ Versiones:
 Instalación
 
  1. ¿Cómo instalar el ambiente de desarrollo?
-```bash
+
 # Clonar repositorio
 git clone https://github.com/Alejandra-Salas-Ruiz/nicoles-decoraciones-agenda.git
 
