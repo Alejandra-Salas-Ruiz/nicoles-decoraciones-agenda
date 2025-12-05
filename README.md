@@ -71,6 +71,7 @@ git clone https://github.com/Alejandra-Salas-Ruiz/nicoles-decoraciones-agenda.gi
 # 2. Seleccionar carpeta del proyecto
 # 3. Click derecho en proyecto → Resolve Problems
 # 4. Agregar librerías necesarias
+
 2. Configuración de Base de Datos
 Iniciar XAMPP (Apache y MySQL)
 
@@ -111,7 +112,7 @@ Configurar ClearDB MySQL add-on
 
 Deploy via Git: git push heroku main
 
-Configuración
+🔧 Configuración
 Configuración del Producto:
 src/main/webapp/META-INF/context.xml - Configuración de DataSource
 
@@ -126,7 +127,7 @@ MySQL: Crear usuario con privilegios
 
 GlassFish: Configurar pool de conexiones JDBC
 
-Uso
+📖 Uso
 Sección de Referencia para Usuario Final:
 Acceso: http://localhost:8080/NicolesDecoracionesWeb/
 
@@ -142,78 +143,3 @@ Panel: Acceso a todas las reservaciones
 Mantenimiento: Opciones de backup y restore
 
 Logs: Revisión de actividad del sistema
-
-Contribución
-Guía de Contribución:
-Fork el repositorio
-
-Clone tu fork localmente:
-
-bash
-git clone https://github.com/tu-usuario/nicoles-decoraciones-agenda.git
-Crear nuevo branch:
-
-bash
-git checkout -b feature/nueva-funcionalidad
-Realizar cambios y commit:
-
-bash
-git add .
-git commit -m "Descripción clara de los cambios"
-Push al repositorio:
-
-bash
-git push origin feature/nueva-funcionalidad
-Abrir Pull Request en GitHub
-
-Esperar revisión y aprobación para merge
-
-Para guía completa ver: CONTRIBUTING.md
-
-Roadmap
-Próximas Implementaciones:
-Versión 1.1 (Próximo):
-Sistema de autenticación de usuarios
-
-Notificaciones por email
-
-Reportes básicos en PDF
-
-Versión 1.2:
-Calendario visual interactivo
-
-Dashboard con estadísticas
-
-Sistema de recordatorios
-
-Versión 2.0:
-API REST para integraciones
-
-Aplicación móvil (Android/iOS)
-
-Integración con redes sociales
-
-Plan completo en: ROADMAP.md
-
-Estado del Proyecto
-Versión actual: 1.0.0-beta
-
-Estado: Desarrollo activo
-
-CI/CD: GitHub Actions funcionando
-
-Gestión: Gitlo implementado (GitHub + Trello)
-
-Historial de cambios: CHANGELOG.md
-
-Contacto
-Desarrolladora: Alejandra Salas Ruiz
-
-Cliente: Nicole Sanchez - Nicole's Decoraciones
-
-Proyecto académico para: Universidad Tecmilenio
-
-Asignatura: Proyecto de Desarrollo de Software
-
-Licencia
-MIT License - Ver LICENSE para detalles.
