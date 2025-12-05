@@ -14,9 +14,4 @@ Guía de Contribución - Nicole's Decoraciones
 - Selecciona plantilla "Feature Request"
 - Explica la mejora y su beneficio
 
-## 🛠️ Proceso de Desarrollo
 
-### Paso 1: Clonar el Repositorio
-```bash
-git clone https://github.com/Alejandra-Salas-Ruiz/nicoles-decoraciones-agenda.git
-cd nicoles-decoraciones-agenda
